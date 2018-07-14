@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface ContactDao {
     List<Contact> findAll();
-    List<Contact> findByFirstName();
+    List<Contact> findAllWithPhones();
+    List<Contact> findByFirstName(String first_name);
     String findFirstNameById(Long id);
     String findLastNameById(Long id);
     void insert(Contact contact);
     void update(Contact contact);
-    void delete(Long id);
-    
+    void delete(Long id);   
 }

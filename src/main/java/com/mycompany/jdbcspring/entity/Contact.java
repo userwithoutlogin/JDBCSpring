@@ -62,6 +62,15 @@ public class Contact {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
+    public Contact() {
+    }
+
+    public Contact(String firstName, String lastName, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
     
     
 }

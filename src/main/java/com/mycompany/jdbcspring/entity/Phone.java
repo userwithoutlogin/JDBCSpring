@@ -15,6 +15,17 @@ public class Phone {
     private String number;
     private Contact contact;
 
+    public Phone() {
+    }
+
+    public Phone(String type, String number, Contact contact) {
+        this.type = type;
+        this.number = number;
+        this.contact = contact;
+    }
+
+    
+
     public Contact getContact() {
         return contact;
     }

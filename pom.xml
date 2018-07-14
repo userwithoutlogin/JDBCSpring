@@ -21,6 +21,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>4.3.18.RELEASE</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ai.h2o</groupId>

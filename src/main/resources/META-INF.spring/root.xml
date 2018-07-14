@@ -5,4 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 ">
   <import resource="classpath:META-INF.spring/database-config.xml"/>
+  <bean id="contactDao" class="com.mycompany.jdbcspring.dao.ContactDaoImpl">
+      <property name="dataSource" ref="dataSource"/>
+  </bean>
 </beans>
