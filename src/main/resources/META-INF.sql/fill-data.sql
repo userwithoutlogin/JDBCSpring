@@ -12,6 +12,4 @@ insert into tel_numbers(t_type,phone_number,contact_id) values
 -- ('Home','89321',4),
 ('Mobile','8932342521',1);
 
-select c.id , c.first_name , c.last_name , c.birth_date ,
-                 t.id as t_id , t.t_type , t.phone_number , t.contact_id from contacts c
-                  left join tel_numbers t on t.contact_id = c.id;
+ 

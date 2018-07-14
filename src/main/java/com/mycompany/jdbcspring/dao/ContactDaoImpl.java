@@ -8,7 +8,10 @@ package com.mycompany.jdbcspring.dao;
 import com.mycompany.jdbcspring.entity.Contact;
 import com.mycompany.jdbcspring.entity.Phone;
 import com.mycompany.jdbcspring.queries.ContactByFirstName;
+import com.mycompany.jdbcspring.queries.InsertContact;
+import com.mycompany.jdbcspring.queries.InsertPhones;
 import com.mycompany.jdbcspring.queries.SelectAllContacts;
+import com.mycompany.jdbcspring.queries.UpdateContact;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -84,13 +87,37 @@ public class ContactDaoImpl implements ContactDao,InitializingBean{
 
     @Override
     public void insert(Contact contact) {
+         Map params = new HashMap();
+         params.put("first_name", contact.getFirstName());
+         params.put("last_name", contact.getLastName());
+         params.put("birth_date", contact.getBirthDate());
+         KeyHolder keyHolder = new GeneratedKeyHolder();
+         new InsertContact(dataSource).updateByNamedParam(params, keyHolder);
+         contact.setId(keyHolder.getKey().longValue());
+         List<Phone> phones = contact.getPhones();
+         InsertPhones insertPhones = new InsertPhones(dataSource);
+         if(!phones.isEmpty())
+         for(Phone phone:phones){
+             params.clear();
+             params.put("t_type", phone.getType());
+             params.put("phone_number", phone.getNumber());
+             params.put("contact_id", phone.getContact().getId());
+             keyHolder = new GeneratedKeyHolder();
+             insertPhones.updateByNamedParam(params, keyHolder);
+             phone.setId(keyHolder.getKey().longValue());
+         }
+         insertPhones.flush();
          
-                
     }
 
     @Override
     public void update(Contact contact) {
-    
+        Map<String,Object> params = new HashMap();
+        params.put("first_name", contact.getFirstName());
+        params.put("last_name", contact.getLastName());
+        params.put("birth_date", contact.getBirthDate());
+        params.put("id", contact.getId());
+        new UpdateContact(dataSource).updateByNamedParam(params);
     }
 
     @Override
