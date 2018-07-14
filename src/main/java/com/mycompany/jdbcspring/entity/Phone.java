@@ -13,7 +13,15 @@ public class Phone {
     private Long id;
     private String type;
     private String number;
-    private Long contactId;
+    private Contact contact;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 
     public Long getId() {
         return id;
@@ -39,12 +47,6 @@ public class Phone {
         this.number = number;
     }
 
-    public Long getContactId() {
-        return contactId;
-    }
-
-    public void setContactId(Long contactId) {
-        this.contactId = contactId;
-    }
+   
     
 }

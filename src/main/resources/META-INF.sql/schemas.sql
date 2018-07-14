@@ -8,7 +8,7 @@ primary key(id)
 
 create table tel_numbers(
 id int unsigned not null auto_increment,
-`type` varchar(10) not null,
+t_type varchar(10) not null,
 phone_number varchar(10) not null,
 contact_id int unsigned not null,
 constraint fk_c

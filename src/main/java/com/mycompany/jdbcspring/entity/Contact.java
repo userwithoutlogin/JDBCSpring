@@ -5,7 +5,9 @@
  */
 package com.mycompany.jdbcspring.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,6 +18,15 @@ public class Contact {
     private String firstName;
     private String lastName;
     private Date birthDate;
+    private List<Phone> phones=new ArrayList();
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
 
     public Long getId() {
         return id;
@@ -24,6 +35,9 @@ public class Contact {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
+     
 
     public String getFirstName() {
         return firstName;
