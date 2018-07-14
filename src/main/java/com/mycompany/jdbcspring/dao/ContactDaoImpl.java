@@ -7,6 +7,8 @@ package com.mycompany.jdbcspring.dao;
 
 import com.mycompany.jdbcspring.entity.Contact;
 import com.mycompany.jdbcspring.entity.Phone;
+import com.mycompany.jdbcspring.queries.ContactByFirstName;
+import com.mycompany.jdbcspring.queries.SelectAllContacts;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +21,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.AbstractSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 /**
  *
@@ -43,8 +49,9 @@ public class ContactDaoImpl implements ContactDao,InitializingBean{
     @Override
     public List<Contact> findAll() {
        String sql ="select * from contacts";
-       return jdbcTemplate.query(sql, new MapAllContacts());
+//       return jdbcTemplate.query(sql, new MapAllContacts());
 //       return jdbcTemplate.query(sql, new ExtractAllContacts());
+        return new SelectAllContacts(dataSource).execute();
     }
 
     @Override
@@ -55,7 +62,8 @@ public class ContactDaoImpl implements ContactDao,InitializingBean{
                 " where first_name=:first_name";
         Map<String,Object> param = new HashMap();
         param.put("first_name", first_name);
-        return jdbcTemplate.query(sql, param, new ExtractAllContactsWithPhones());
+//        return jdbcTemplate.query(sql, param, new ExtractAllContactsWithPhones());
+            return new ContactByFirstName(dataSource).executeByNamedParam(param);
     }
 
     @Override
@@ -76,12 +84,8 @@ public class ContactDaoImpl implements ContactDao,InitializingBean{
 
     @Override
     public void insert(Contact contact) {
-        String sql = "insert into contacts(first_name, last_name,birth_date)"+
-                "values (:first_name,:last_name,:birth_date)";
-        Map<String,Object> params = new HashMap();
-        params.put("first_name", contact.getFirstName());
-        params.put("last_name", contact.getLastName());
-        params.put("birth_date", contact.getBirthDate());
+         
+                
     }
 
     @Override

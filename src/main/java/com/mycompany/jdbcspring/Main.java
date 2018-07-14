@@ -5,6 +5,9 @@
  */
 package com.mycompany.jdbcspring;
 
+import com.mycompany.jdbcspring.dao.ContactDao;
+import com.mycompany.jdbcspring.entity.Contact;
+import java.util.List;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 /**
@@ -17,5 +20,14 @@ public class Main {
        ctx.load("classpath:META-INF.spring/root.xml");
        ctx.refresh();
        
+        ContactDao contactDao = ctx.getBean("contactDao",ContactDao.class);
+        List<Contact> contacts = contactDao.findAll();
+        List<Contact> contacts1 = contactDao.findAllWithPhones();
+        List<Contact> contacts2 = contactDao.findByFirstName("Chris");
+        String name = contactDao.findFirstNameById(1L);
+        String lastN = contactDao.findLastNameById(1L);
+        contactDao.delete(1L);
+        List<Contact> contacts3 = contactDao.findAllWithPhones();
+        
     }
 }
